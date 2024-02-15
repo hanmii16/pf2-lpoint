@@ -1,0 +1,8 @@
+section#benefit{
+
+  background-color: white;
+}
+section#benefit .wrap{
+   
+  transform: translateX(-100%);
+}
