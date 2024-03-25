@@ -82,7 +82,8 @@ header div.wrap .sublist{
   background-color: #eee;
   display: grid;
   grid-template-columns: calc((100% - 1080px) / 2) 320px auto;
-  display: none;
+  /*! display: none; */
+  display: grid;
 }
 header div.wrap .sublist h2 {
 
@@ -153,6 +154,6 @@ header div.wrap ul.lang li:nth-child(3) a:hover::after{
    transform: translateY(0%);
   }
 }
-.show{
+/* .show{
   display: grid !important;
-}
+} */

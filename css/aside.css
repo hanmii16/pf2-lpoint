@@ -23,12 +23,12 @@ aside ul li a {
   transition: 0.5s;
 }
 .currentB{
-  background-color: blue; 
+  background-color: #009bfa; 
 }
 .currentW{
   background-color: white; 
 }
 .active a{
-  background-color: yellow;
-  transform: scale(1.5);
+  background-color: blue;
+  transform: scale(1);
 }

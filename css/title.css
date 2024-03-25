@@ -87,6 +87,7 @@
 }
 #title .wrap p {
   
+  font-size: 20px;
 }
 #title::after{
   content: "";

@@ -38,6 +38,7 @@ section#mission .wrap h2{
 }
 section#mission .wrap p{
    
+  font-size: 20px;
 }
 section#mission::after{
   content: "";

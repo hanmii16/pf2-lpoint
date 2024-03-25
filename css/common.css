@@ -42,7 +42,7 @@ body{
   font-size: 70px;
 }
 .h2{
-  font-size: 48px;
+  font-size: 60px;
   margin-bottom:20px;
   font-weight: 200;
   text-transform: capitalize;
@@ -120,7 +120,7 @@ body{
   height: 10px;
   display: inline-block;
   padding: 0 1px;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 /*안보이게*/
 .hide{

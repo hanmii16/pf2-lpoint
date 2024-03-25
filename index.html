@@ -32,31 +32,141 @@
     <!-- 스크립트 > 제이쿼리 기본구조 > 대메뉴li에 마우스를 올리면 실행하시오-->
     <script type="text/javascript">
         $(document).ready(function(){
+            //MENU SLIDE
+            $("header div.wrap .sublist").hide();
             $("header div.wrap ul.gnb li").hover(
                 function(){
                     //sublist에 클래스를 붙이시오
-                    $("header div.wrap .sublist").addClass("show");
+                    $("header div.wrap .sublist").stop().slideDown();
                 },
                 function(){
-                    // $("header div.wrap .sublist").removeClass("show");
                 });
                 //sublist에서 벗어나면 실행하시오 (mouseleave 이벤트)
                 $("header div.wrap .sublist").mouseleave(function(){
                     // sublist에 클래스를 없애시오 (show)
-                    $("header div.wrap .sublist").removeClass("show");
+                    $("header div.wrap .sublist").stop().slideUp();
             });
-            // aside 첫번째li에 클래스를 붙이시오(active)
-            $("aside ul li:nth-child(1)").addClass("active");
-            // aside 항목list를 클릭하면 실행하시오
-            $("aside ul li").click(function(){
-                // 클릭한 li에 클래스를 붙이시오
-                $(this).addClass("active");
-                // 클릭한 li가 아닌 다른 형제요소들에 클래스를 없애시오
-                $(this).siblings().removeClass("active");
+            //ASIDE 
+            // // aside 첫번째li에 클래스를 붙이시오(active)
+            // $("aside ul li:nth-child(1)").addClass("active");
+            // // aside 항목list를 클릭하면 실행하시오
+            // $("aside ul li").click(function(){
+            //     // 클릭한 li에 클래스를 붙이시오
+            //     $(this).addClass("active");
+            //     // 클릭한 li가 아닌 다른 형제요소들에 클래스를 없애시오
+            //     $(this).siblings().removeClass("active");
+            //     return false;
+            // });
+
+            $("aside ul li:nth-child(1) a").click(function(event){
+                var title = $(this).attr('href'); // Lấy giá trị của href của thẻ <a> được click
+                $('html, body').animate({
+                    scrollTop: $(title).offset().top // Cuộn trang đến phần tử có id là target
+                }, 500); // Hiệu ứng mượt trong 0.5s giây
+                $(this).addClass("currentB");
+                $(this).siblings().parent('li').removeClass("currentB");
+                return false; // Ngăn chặn hành vi mặc định của sự kiện click
+            });
+            $("aside ul li:nth-child(2) a").click(function(event){
+                var point = $(this).attr('href'); 
+                $('html, body').animate({
+                    scrollTop: $(point).offset().top 
+                }, 500);
+                $(this).addClass("currentW"); 
+                $(this).siblings().parent().removeClass("currentW");
+                return false;
+            });
+            $("aside ul li:nth-child(3) a").click(function(event){
+                var mission = $(this).attr('href'); 
+                $('html, body').animate({
+                    scrollTop: $(mission).offset().top 
+                }, 500);
+                $(this).addClass("currentW").siblings().hide(); 
+                
+                return false;
+            });
+            $("aside ul li:nth-child(4) a").click(function(event){ 
+                var benefit = $(this).attr('href'); 
+                $('html, body').animate({
+                    scrollTop: $(benefit).offset().top 
+                }, 500);
+                $(this).addClass("currentB").siblings().hide();
+                return false;
+            });
+            //SCROLL
+                        $(window).on('scroll', function(){
+                var scrollPos = $(window).scrollTop();
+                $('section').each(function(){
+                    var offsetTop = $(this).offset().top - 100; // Điều chỉnh giá trị 100 nếu cần thiết
+                    var id = $(this).attr('id');
+                    if(scrollPos >= offsetTop){
+                        $('aside ul li.active').removeClass('active');
+                        $('aside ul li').find('a[href="#'+id+'"]').parent().addClass('active');
+                    }
+                });
+            });
+
+            //BUTTON CLICK
+            $("footer .wrap .combobox .partner button").click(function(){
+                $("footer .wrap .combobox .partner dl").slideToggle();
+                $("footer .wrap .combobox .partner button").toggleClass("arrow");
+            });
+            $("footer .wrap .combobox .lang button").click(function(){
+                $("footer .wrap .combobox .lang ul").slideToggle();
+                $("footer .wrap .combobox .lang button").toggleClass("arrow");
+            });
+            //TOP BUTTON CLICK
+            $("a.top").click(function(){
+                $("html,body").animate({scrollTop:0},1000);
                 return false;
             });
         });
     </script>
+    
+    <!-- <script type="text/javascript">
+        window.onload = function () {
+            var elm = ".box";
+            $(elm).each(function (index) {
+                // 개별적으로 Wheel 이벤트 적용
+                $(this).on("mousewheel DOMMouseScroll", function (e) {
+                    e.preventDefault();
+                    var delta = 0;
+                    if (!event) event = window.event;
+                    if (event.wheelDelta) {
+                        delta = event.wheelDelta / 120;
+                        if (window.opera) delta = -delta;
+                    } 
+                    else if (event.detail)
+                        delta = -event.detail / 3;
+                    var moveTop = $(window).scrollTop();
+                    var elmSelecter = $(elm).eq(index);
+                    // 마우스휠을 위에서 아래로
+                    if (delta < 0) {
+                        if ($(elmSelecter).next() != undefined) {
+                            try{
+                                moveTop = $(elmSelecter).next().offset().top;
+                            }catch(e){}
+                        }
+                    // 마우스휠을 아래에서 위로
+                    } else {
+                        if ($(elmSelecter).prev() != undefined) {
+                            try{
+                                moveTop = $(elmSelecter).prev().offset().top;
+                            }catch(e){}
+                        }
+                    }
+                     
+                    // 화면 이동 0.8초(800)
+                    $("html,body").stop().animate({
+                        scrollTop: moveTop + 'px'
+                    }, {
+                        duration: 1000, complete: function () {
+                        }
+                    });
+                });
+            });
+        }
+    </script> -->
 </head>
 <body>
     <!-- 상단영역 -->
@@ -87,7 +197,7 @@
         </div>
     </header>
     <!-- 타이틀영역 -->
-    <div id="title">
+    <div id="title" class="box">
         <a href=""></a>
         <div class="wrap flex column center align-center">
                 <h2 class="h2"> 
@@ -100,9 +210,9 @@
         </div>
     </div>
     <!-- 메인영역 -->
-    <main class="paddingT50">
+    <main>
         <!-- point -->
-        <section id="point" class="paddingT50 paddingB50 vh100">
+        <section id="point" class="box paddingT50 paddingB50 vh100">
             <div class="wrap flex column center align-center h100">
                 <h2 class="h2">
                     쓸수록 쌓이는<span class="block"></span>
@@ -112,7 +222,7 @@
             </div>
         </section>
         <!-- 미션 -->
-        <section id="mission" class="paddingT50 paddingB50 vh100">
+        <section id="mission" class="box paddingT50 paddingB50 vh100">
             <div class="wrap flex column align-center h100 text-center">
                 <h2 class="h2">
                     매일 발견하는 <span class="block"></span>
@@ -125,7 +235,7 @@
             </div>
         </section>
         <!-- 혜택 -->
-        <section id="benefit" class="flex paddingT50 paddingB50 vh100">
+        <section id="benefit" class="box flex paddingT50 paddingB50 vh100">
             <div class="wrap flex column center h100">
                 <h2 class="h2">
                     다양한 사용처와<span class="block"></span>
@@ -139,7 +249,7 @@
             </div>
         </section>
         <!-- 다운로드 -->
-        <section id="download" class="paddingT50 paddingB50">
+        <section id="download" class="box paddingT50 paddingB50">
             <div class="wrap h100">
                 <h2 class="h2">앱 다운로드</h2>
                 <a href="" class="p">자세히 보기</a>
@@ -149,10 +259,10 @@
     </main>
     <aside>
         <ul>
-            <li><a href=""class="currentB">point</a></li>
-            <li><a href="">mission</a></li>
-            <li><a href="">benefit</a></li>
-            <li><a href="">download</a></li>
+            <li><a href="#title">title</a></li>
+            <li><a href="#point">point</a></li>
+            <li><a href="#mission">mission</a></li>
+            <li><a href="#benefit">benefit</a></li>
         </ul>
     </aside>
     <!-- 하단영역 -->
@@ -179,7 +289,7 @@
             <div class="combobox flex">
                 <div class="partner">
                     <button class="">제휴업체</button>
-                    <dl class="hide">
+                    <dl>
                         <dt>LOTTE</dt>
                         <dd>롯데지주</dd>
                         <dd>롯데채용센터</dd>
@@ -194,8 +304,8 @@
                     </dl>
                 </div>
                 <div class="lang">
-                    <button id="">language</button>
-                    <ul class="hide">
+                    <button id="">Language</button>
+                    <ul>
                         <li><a href="">English</a></li>
                         <li><a href="">汉语</a></li>
                         <li><a href="">日本語</a></li>
